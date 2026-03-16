@@ -1,0 +1,57 @@
+.leaflet-card {
+  margin-bottom: 12px;
+}
+
+.route-info {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--blue-dark);
+  background: var(--blue-light);
+  border: 0.5px solid var(--blue-mid);
+  padding: 2px 9px;
+  border-radius: 10px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* Override Leaflet's default z-index to not break our UI */
+.leaflet-container {
+  z-index: 1;
+  border-radius: var(--radius-md);
+  border: 0.5px solid var(--gray-border);
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: var(--radius-md) !important;
+  font-family: 'DM Sans', system-ui, sans-serif !important;
+  font-size: 12px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12) !important;
+}
+
+.leaflet-popup-content {
+  margin: 10px 14px !important;
+  line-height: 1.6 !important;
+}
+
+.map-legend {
+  display: flex;
+  gap: 14px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  color: var(--text-secondary);
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}

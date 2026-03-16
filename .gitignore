@@ -1,0 +1,9 @@
+backend/.env
+frontend/.env
+__pycache__/
+*.pyc
+*.db
+node_modules/
+frontend/build/
+.env
+GitHub personal access token.txt

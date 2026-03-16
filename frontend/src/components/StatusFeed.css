@@ -1,0 +1,36 @@
+.feed-card {
+  margin-top: 12px;
+}
+
+.feed-empty {
+  font-size: 12px;
+  color: var(--text-secondary);
+  padding: 4px 0;
+}
+
+.feed-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 6px;
+  font-size: 12px;
+  line-height: 1.5;
+  animation: slide-in 0.3s ease;
+}
+
+@keyframes slide-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.feed-item:last-child { margin-bottom: 0; }
+
+.feed-success { background: var(--green-light); color: var(--green-dark); border: 0.5px solid var(--green-mid); }
+.feed-info    { background: var(--blue-light);  color: var(--blue-dark);  border: 0.5px solid var(--blue-mid); }
+.feed-warning { background: var(--amber-light); color: var(--amber-dark); border: 0.5px solid var(--amber-mid); }
+.feed-danger  { background: var(--red-light);   color: var(--red-dark);   border: 0.5px solid var(--red-mid); }
+
+.feed-icon { font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+.feed-text  { flex: 1; }

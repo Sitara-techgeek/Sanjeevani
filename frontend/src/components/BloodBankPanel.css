@@ -1,0 +1,151 @@
+.blood-card {
+  margin-top: 12px;
+}
+
+.required-group-badge {
+  margin-left: auto;
+  padding: 2px 10px;
+  background: var(--red-light);
+  color: var(--red-dark);
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.no-banks {
+  font-size: 13px;
+  color: var(--text-secondary);
+  padding: 8px 0;
+}
+
+.blood-bank-row {
+  padding: 10px;
+  border: 1px solid var(--gray-border);
+  border-radius: var(--radius-md);
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.blood-bank-row:last-of-type {
+  margin-bottom: 0;
+}
+
+.blood-bank-row:hover {
+  border-color: var(--red);
+  background: var(--red-light);
+}
+
+.blood-bank-row.selected {
+  border-color: var(--red);
+  background: var(--red-light);
+  box-shadow: 0 0 0 2px rgba(226, 75, 74, 0.12);
+}
+
+.bb-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bb-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.bb-distance {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.bb-meta {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.blood-pills {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.blood-pill {
+  padding: 2px 8px;
+  background: var(--red-light);
+  color: var(--red-dark);
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.blood-pill-highlight {
+  background: var(--red);
+  color: white;
+}
+
+.workflow-section {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 0.5px solid var(--gray-border);
+}
+
+.workflow-header {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.workflow-btn {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid;
+  transition: all 0.2s;
+}
+
+.workflow-btn:last-child {
+  margin-bottom: 0;
+}
+
+.workflow-btn.dispatch {
+  background: var(--red-light);
+  color: var(--red-dark);
+  border-color: var(--red);
+}
+
+.workflow-btn.dispatch:hover:not(:disabled) {
+  background: var(--red);
+  color: white;
+}
+
+.workflow-btn.pickup {
+  background: var(--blue-light);
+  color: var(--blue-dark);
+  border-color: var(--blue);
+}
+
+.workflow-btn.pickup:hover:not(:disabled) {
+  background: var(--blue);
+  color: white;
+}
+
+.workflow-btn.sent {
+  background: var(--green-light);
+  color: var(--green-dark);
+  border-color: var(--green);
+  cursor: default;
+}
+
+.workflow-btn:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
