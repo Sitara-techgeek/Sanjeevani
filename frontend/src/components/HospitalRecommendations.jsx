@@ -41,7 +41,7 @@ export default function HospitalRecommendations({ hospitals, selectedId, onSelec
               {h.distance_km} km &nbsp;·&nbsp; {h.travel_time_min} min ETA
             </div>
 
-            {/* Specialist match */}
+            {/* Specialist match line */}
             {h.required_specialist_label && (
               <div className={`specialist-match ${h.required_specialist_available ? 'match-yes' : 'match-no'}`}>
                 {h.required_specialist_available
@@ -53,18 +53,18 @@ export default function HospitalRecommendations({ hospitals, selectedId, onSelec
               </div>
             )}
 
-            {/* Badges — green if available, red if not — removed trauma specialist and active tags */}
+            {/* Badges — ICU and beds always show, specialists only show if hospital has them */}
             <div className="hospital-badges">
-              <Badge available={h.icu_available}          label="ICU" />
-              <Badge available={h.beds_available > 0}     label={`${h.beds_available} beds`} />
-              <Badge available={h.has_cardiologist}       label="Cardiologist" />
-              <Badge available={h.has_neurosurgeon}       label="Neurosurgeon" />
-              <Badge available={h.has_gynaecologist}      label="Gynaecologist" />
-              <Badge available={h.has_general_surgeon}    label="General Surgeon" />
-              <Badge available={h.has_burn_specialist}    label="Burn Specialist" />
-              <Badge available={h.has_orthopaedic_surgeon} label="Orthopaedic" />
-              <Badge available={h.has_cardiothoracic_surgeon} label="CT Surgeon" />
-              <Badge available={h.has_toxicologist}       label="Toxicologist" />
+              <Badge available={h.icu_available}      label="ICU" />
+              <Badge available={h.beds_available > 0} label={`${h.beds_available} beds`} />
+              {h.has_cardiologist            && <Badge available={true} label="Cardiologist" />}
+              {h.has_neurosurgeon            && <Badge available={true} label="Neurosurgeon" />}
+              {h.has_gynaecologist           && <Badge available={true} label="Gynaecologist" />}
+              {h.has_general_surgeon         && <Badge available={true} label="General Surgeon" />}
+              {h.has_burn_specialist         && <Badge available={true} label="Burn Specialist" />}
+              {h.has_orthopaedic_surgeon     && <Badge available={true} label="Orthopaedic" />}
+              {h.has_cardiothoracic_surgeon  && <Badge available={true} label="CT Surgeon" />}
+              {h.has_toxicologist            && <Badge available={true} label="Toxicologist" />}
             </div>
           </div>
 
