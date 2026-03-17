@@ -11,10 +11,9 @@
 
 .login-left {
   background: var(--red);
-  padding: 48px;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
   position: relative;
   overflow: hidden;
 }
@@ -22,68 +21,78 @@
 .login-left::before {
   content: '';
   position: absolute;
-  width: 400px;
-  height: 400px;
+  width: 500px;
+  height: 500px;
   border-radius: 50%;
   background: rgba(255,255,255,0.05);
-  top: -100px;
-  right: -100px;
+  top: -150px;
+  right: -150px;
 }
 
 .login-left::after {
   content: '';
   position: absolute;
-  width: 300px;
-  height: 300px;
+  width: 350px;
+  height: 350px;
   border-radius: 50%;
   background: rgba(255,255,255,0.04);
-  bottom: -80px;
-  left: -60px;
+  bottom: -100px;
+  left: -80px;
 }
 
-.login-brand {
+.login-left-content {
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  z-index: 1;
+  width: 100%;
+}
+
+.login-brand-block {
   display: flex;
   align-items: center;
-  gap: 14px;
-  z-index: 1;
+  gap: 18px;
 }
 
-.login-brand-img {
-  width: 60px;
-  height: 60px;
-  border-radius: 14px;
+.login-brand-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 18px;
   object-fit: cover;
-  border: 2px solid rgba(255,255,255,0.5);
+  border: 3px solid rgba(255,255,255,0.6);
   background: white;
-  padding: 3px;
+  padding: 4px;
+  flex-shrink: 0;
 }
 
 .login-brand-text {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 6px;
 }
 
 .login-brand-name {
   font-family: 'Outfit', sans-serif;
-  font-size: 24px;
+  font-size: 42px;
   font-weight: 700;
   color: white;
-  letter-spacing: 1px;
+  letter-spacing: 4px;
+  line-height: 1;
+  text-transform: uppercase;
 }
 
 .login-brand-tagline {
-  font-size: 12px;
-  color: rgba(255,255,255,0.8);
+  font-size: 15px;
+  color: rgba(255,255,255,0.85);
   font-style: italic;
   letter-spacing: 0.5px;
+  font-weight: 400;
 }
-
-.login-hero-text { z-index: 1; }
 
 .login-hero-text h1 {
   font-family: 'Outfit', sans-serif;
-  font-size: 52px;
+  font-size: 48px;
   font-weight: 700;
   color: white;
   line-height: 1.1;
@@ -100,15 +109,14 @@
 .login-stats {
   display: flex;
   align-items: center;
-  gap: 24px;
-  z-index: 1;
+  gap: 28px;
 }
 
 .login-stat { display: flex; flex-direction: column; gap: 2px; }
 
 .stat-num {
   font-family: 'Outfit', sans-serif;
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 700;
   color: white;
 }
@@ -122,12 +130,12 @@
 
 .login-stat-divider {
   width: 1px;
-  height: 40px;
+  height: 44px;
   background: rgba(255,255,255,0.2);
 }
 
 .login-right {
-  background: var(--gray-bg);
+  background: var(--white);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -168,7 +176,6 @@
 }
 
 .login-form { display: flex; flex-direction: column; gap: 16px; }
-
 .login-field { display: flex; flex-direction: column; gap: 6px; }
 
 .login-field label {
@@ -199,7 +206,7 @@
   border: 1.5px solid var(--gray-border);
   border-radius: var(--radius-md);
   font-size: 14px;
-  background: var(--white);
+  background: var(--off-white);
   color: var(--text-primary);
   transition: border-color 0.15s, box-shadow 0.15s;
 }
@@ -208,8 +215,9 @@
 
 .input-wrap input:focus {
   outline: none;
-  border-color: var(--red);
-  box-shadow: 0 0 0 3px rgba(226,75,74,0.12);
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(46,125,50,0.12);
+  background: var(--white);
 }
 
 .login-btn {
@@ -224,13 +232,13 @@
   cursor: pointer;
   margin-top: 4px;
   transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
-  box-shadow: 0 4px 14px rgba(226,75,74,0.35);
+  box-shadow: 0 4px 14px rgba(211,47,47,0.35);
   font-family: 'Outfit', sans-serif;
 }
 
 .login-btn:hover {
   background: var(--red-dark);
-  box-shadow: 0 6px 20px rgba(226,75,74,0.4);
+  box-shadow: 0 6px 20px rgba(211,47,47,0.4);
   transform: translateY(-1px);
 }
 
@@ -272,6 +280,6 @@
   letter-spacing: 0.4px;
 }
 
-.role-admin     { background: var(--red-light);  color: var(--red-dark); }
-.role-paramedic { background: var(--blue-light); color: var(--blue-dark); }
+.role-admin     { background: var(--red-light);   color: var(--red-dark); }
+.role-paramedic { background: var(--green-light);  color: var(--green-dark); }
 .role-hint { font-size: 11px; color: var(--text-hint); margin-left: 2px; }
