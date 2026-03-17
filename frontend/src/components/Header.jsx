@@ -24,7 +24,7 @@ export default function Header({ role }) {
       <div className="header-brand">
         <img src="/icon.jpeg" alt="Sanjeevani" className="header-logo-img" />
         <div className="header-brand-text">
-          <span className="header-title">Sanjeevani</span>
+          <span className="header-title">SANJEEVANI</span>
           <span className="header-tagline">Every Second Matters</span>
         </div>
         <span className={`header-role-badge ${roleColor}`}>{roleLabel}</span>
