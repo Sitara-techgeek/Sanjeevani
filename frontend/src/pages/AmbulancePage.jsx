@@ -12,8 +12,11 @@ import { useAuth } from '../context/AuthContext';
 import './AmbulancePage.css';
 
 const DEFAULT_FORM = {
-  heartRate: '', bloodPressure: '', spo2: '',
-  bloodGroup: 'O+', traumaType: 'Heavy Bleeding',
+  heartRate:     '85',
+  bloodPressure: '120/80',
+  spo2:          '98',
+  bloodGroup:    'O+',
+  traumaType:    'Heavy Bleeding',
   consciousness: 'Alert',
 };
 
@@ -31,11 +34,9 @@ export default function AmbulancePage() {
   const [loading, setLoading]                   = useState(false);
   const [ambulancePos, setAmbulancePos]         = useState(null);
 
-  // Real-time GPS via browser + Socket.io
   useEffect(() => {
     if (!navigator.geolocation) return;
 
-    // Connect Socket.io to backend
     const socket = io(process.env.REACT_APP_API_URL || 'http://localhost:8000');
     socketRef.current = socket;
 
@@ -43,7 +44,6 @@ export default function AmbulancePage() {
       (pos) => {
         const coords = { lat: pos.coords.latitude, lng: pos.coords.longitude };
         setAmbulancePos(coords);
-        // Emit location to server via Socket.io
         socket.emit('location_update', {
           userId: user?.id,
           latitude: coords.lat,
@@ -92,7 +92,13 @@ export default function AmbulancePage() {
         ...(d.requires_blood ? [{ type: 'danger', icon: '🩸', text: `[${now}] ${form.bloodGroup} needed. ${d.compatible_blood_banks.length} bank(s) found.` }] : []),
       ]);
     } catch (err) {
-      addNotif({ type: 'danger', icon: '✕', text: err.response?.data?.detail || 'Triage failed. Check connection.' });
+      addNotif({
+        type: 'danger',
+        icon: '✕',
+        text: err.response?.data?.detail
+          ? JSON.stringify(err.response.data.detail)
+          : 'Triage failed. Check all fields are filled in.',
+      });
     } finally {
       setLoading(false);
     }
@@ -103,23 +109,33 @@ export default function AmbulancePage() {
       <Header role="ambulance" />
       <div className="amb-container">
         <div className="amb-left">
-          <PatientInputPanel formData={form} onChange={setForm} onSubmit={runTriage} loading={loading} />
+          <PatientInputPanel
+            formData={form}
+            onChange={setForm}
+            onSubmit={runTriage}
+            loading={loading}
+            ambulancePos={ambulancePos}
+          />
           {showBlood && triageResult && (
-            <BloodBankPanel bloodBanks={bloodBanks} requiredBloodGroup={form.bloodGroup} onNotification={addNotif} />
+            <BloodBankPanel
+              bloodBanks={bloodBanks}
+              requiredBloodGroup={form.bloodGroup}
+              onNotification={addNotif}
+            />
           )}
         </div>
         <div className="amb-right">
           {!triageResult ? (
             <div className="placeholder card">
-              <div className="placeholder-icon" style={{opacity:0.22,margin:'0 auto 14px',width:'fit-content'}}>
+              <div className="placeholder-icon" style={{opacity:0.18,margin:'0 auto 18px',width:'fit-content'}}>
                 <svg viewBox="0 0 48 48" fill="none" width="48" height="48">
                   <circle cx="24" cy="24" r="20" stroke="currentColor" strokeWidth="1.5"/>
                   <path d="M24 14v10l6 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
                 </svg>
               </div>
-              <div style={{fontSize:15,fontWeight:500,marginBottom:6}}>Enter patient data and run triage</div>
-              <div style={{fontSize:13,color:'var(--text-secondary)'}}>
-                GPS is {ambulancePos ? '✓ active' : 'acquiring...'}
+              <div className="placeholder-title">Enter patient data and run triage</div>
+              <div className="placeholder-sub">
+                GPS is {ambulancePos ? '✓ active — location acquired' : 'acquiring your location...'}
               </div>
             </div>
           ) : (
