@@ -26,22 +26,18 @@ export default function BloodBankPanel({ bloodBanks, requiredBloodGroup, onNotif
     if (!selectedBank) return;
     const now   = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
     const units = getUnits(selectedBank, requiredBloodGroup);
-
     let message;
     if (type === 'dispatch') {
       message = {
-        type: 'success',
-        icon: '✓',
+        type: 'success', icon: '✓',
         text: `${selectedBank.name} notified. ${units} units of ${requiredBloodGroup} being dispatched to hospital. ETA ~${selectedBank.distance_km < 3 ? '10' : '18'} min. [${now}]`,
       };
     } else {
       message = {
-        type: 'info',
-        icon: '✓',
+        type: 'info', icon: '✓',
         text: `${requiredBloodGroup} blood units ready for ambulance pickup at ${selectedBank.name}. Route confirmed. [${now}]`,
       };
     }
-
     setRequestSent(type);
     onNotification(message);
   };
@@ -58,9 +54,7 @@ export default function BloodBankPanel({ bloodBanks, requiredBloodGroup, onNotif
       </div>
 
       {bloodBanks.length === 0 ? (
-        <div className="no-banks">
-          No blood banks with {requiredBloodGroup} available nearby.
-        </div>
+        <div className="no-banks">No blood banks with {requiredBloodGroup} available nearby.</div>
       ) : (
         <>
           {bloodBanks.map(bb => {
@@ -73,9 +67,27 @@ export default function BloodBankPanel({ bloodBanks, requiredBloodGroup, onNotif
               >
                 <div className="bb-header">
                   <div className="bb-name">{bb.name}</div>
-                  <div className="bb-distance">{bb.distance_km} km</div>
+                  <div className="bb-distance">{bb.distance_km} km away</div>
                 </div>
-                <div className="bb-meta">{bb.address}</div>
+
+                {/* Contact number */}
+                {bb.phone && (
+                  <div className="bb-phone">
+                    <svg viewBox="0 0 14 14" fill="none" width="12" height="12">
+                      <path d="M2 2.5A1.5 1.5 0 013.5 1h1a1.5 1.5 0 011.5 1.5v.5a1.5 1.5 0 01-1.5 1.5 7 7 0 004 4A1.5 1.5 0 0110 10h.5A1.5 1.5 0 0112 11.5v1A1.5 1.5 0 0110.5 14C5.25 14 1 9.75 1 4.5A1.5 1.5 0 012.5 3H2z"
+                        stroke="currentColor" strokeWidth="1" fill="none"/>
+                    </svg>
+                    {bb.phone}
+                  </div>
+                )}
+
+                {/* Required blood group units highlighted */}
+                <div className="bb-units-highlight">
+                  <span className="bb-units-label">{requiredBloodGroup} available:</span>
+                  <span className="bb-units-count">{units} units</span>
+                </div>
+
+                {/* All blood group pills */}
                 <div className="blood-pills">
                   {Object.entries(BLOOD_GROUP_FIELDS).map(([group, field]) => {
                     const qty = bb[field] || 0;
