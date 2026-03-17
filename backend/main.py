@@ -78,16 +78,4 @@ seed_database()
 
 @app.get("/health")
 def health():
-    return {"message": "Sanjeevani API running", "docs": "/docs"}Exception as e:
-        db.rollback()
-        print(f"Seed error: {e}")
-    finally:
-        db.close()
-
-
-seed_database()
-
-
-@app.get("/health")
-def health():
     return {"message": "Sanjeevani API running", "docs": "/docs"}
