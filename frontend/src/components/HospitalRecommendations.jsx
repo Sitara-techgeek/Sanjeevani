@@ -1,8 +1,12 @@
 import React from 'react';
 import './HospitalRecommendations.css';
 
-function Badge({ type, children }) {
-  return <span className={`badge badge-${type}`}>{children}</span>;
+function Badge({ available, label }) {
+  return (
+    <span className={`badge ${available ? 'badge-green' : 'badge-red'}`}>
+      {label}
+    </span>
+  );
 }
 
 export default function HospitalRecommendations({ hospitals, selectedId, onSelect, requiredSpecialist }) {
@@ -29,7 +33,6 @@ export default function HospitalRecommendations({ hospitals, selectedId, onSelec
           className={`hospital-row ${selectedId === h.id ? 'selected' : ''}`}
           onClick={() => onSelect(h)}
         >
-          {/* Rank circle */}
           <div className={`hospital-rank rank-${i + 1}`}>{i + 1}</div>
 
           <div className="hospital-info">
@@ -38,30 +41,30 @@ export default function HospitalRecommendations({ hospitals, selectedId, onSelec
               {h.distance_km} km &nbsp;·&nbsp; {h.travel_time_min} min ETA
             </div>
 
-            {/* Specialist match — most important line */}
+            {/* Specialist match */}
             {h.required_specialist_label && (
               <div className={`specialist-match ${h.required_specialist_available ? 'match-yes' : 'match-no'}`}>
                 {h.required_specialist_available
                   ? `✓ ${h.required_specialist_label} available`
                   : `✕ No ${h.required_specialist_label}`}
+                {h.specialist_shift && (
+                  <span className="shift-label"> — {h.specialist_shift}</span>
+                )}
               </div>
             )}
 
+            {/* Badges — green if available, red if not — removed trauma specialist and active tags */}
             <div className="hospital-badges">
-              {h.icu_available
-                ? <Badge type="green">ICU</Badge>
-                : <Badge type="red">No ICU</Badge>
-              }
-              <Badge type="amber">{h.beds_available} beds</Badge>
-              {h.trauma_specialist && <Badge type="blue">Trauma Specialist</Badge>}
-              {h.has_cardiologist          && <Badge type="blue">Cardiologist</Badge>}
-              {h.has_neurosurgeon          && <Badge type="blue">Neurosurgeon</Badge>}
-              {h.has_gynaecologist         && <Badge type="pink">Gynaecologist</Badge>}
-              {h.has_burn_specialist       && <Badge type="amber">Burn Specialist</Badge>}
-              {h.has_orthopaedic_surgeon   && <Badge type="gray">Orthopaedic</Badge>}
-              {h.has_toxicologist          && <Badge type="gray">Toxicologist</Badge>}
-              {h.has_cardiothoracic_surgeon && <Badge type="blue">CT Surgeon</Badge>}
-              <Badge type="gray">{h.emergency_status}</Badge>
+              <Badge available={h.icu_available}          label="ICU" />
+              <Badge available={h.beds_available > 0}     label={`${h.beds_available} beds`} />
+              <Badge available={h.has_cardiologist}       label="Cardiologist" />
+              <Badge available={h.has_neurosurgeon}       label="Neurosurgeon" />
+              <Badge available={h.has_gynaecologist}      label="Gynaecologist" />
+              <Badge available={h.has_general_surgeon}    label="General Surgeon" />
+              <Badge available={h.has_burn_specialist}    label="Burn Specialist" />
+              <Badge available={h.has_orthopaedic_surgeon} label="Orthopaedic" />
+              <Badge available={h.has_cardiothoracic_surgeon} label="CT Surgeon" />
+              <Badge available={h.has_toxicologist}       label="Toxicologist" />
             </div>
           </div>
 
