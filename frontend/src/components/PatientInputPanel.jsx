@@ -17,12 +17,8 @@ const TRAUMA_TYPES = [
 const CONSCIOUSNESS_LEVELS = ['Unresponsive', 'Responds to Pain', 'Confused', 'Alert'];
 const BLOOD_GROUPS = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
 
-// Which trauma types require blood group input
-const BLOOD_RELEVANT = ['Heavy Bleeding', 'Maternal Emergency', 'Cardiac Emergency', 'Chest Trauma'];
-
-export default function PatientInputPanel({ formData, onChange, onSubmit, loading }) {
+export default function PatientInputPanel({ formData, onChange, onSubmit, loading, ambulancePos }) {
   const handleChange = (field, value) => onChange({ ...formData, [field]: value });
-  const showBloodGroup = BLOOD_RELEVANT.includes(formData.traumaType);
 
   return (
     <div className="input-panel card">
@@ -33,6 +29,14 @@ export default function PatientInputPanel({ formData, onChange, onSubmit, loadin
             strokeLinecap="round" strokeLinejoin="round" />
         </svg>
         Patient Data Input
+      </div>
+
+      {/* GPS status indicator */}
+      <div className={`gps-status ${ambulancePos ? 'gps-active' : 'gps-waiting'}`}>
+        <span className="gps-dot"/>
+        {ambulancePos
+          ? `GPS Active — ${ambulancePos.lat.toFixed(4)}, ${ambulancePos.lng.toFixed(4)}`
+          : 'Acquiring GPS location...'}
       </div>
 
       <div className="form-row">
@@ -74,7 +78,6 @@ export default function PatientInputPanel({ formData, onChange, onSubmit, loadin
         </select>
       </div>
 
-      {/* Specialist hint */}
       {formData.traumaType && (
         <div className="specialist-hint">
           <svg viewBox="0 0 12 12" fill="none" width="12" height="12">
@@ -91,22 +94,12 @@ export default function PatientInputPanel({ formData, onChange, onSubmit, loadin
           onChange={e => handleChange('bloodGroup', e.target.value)}>
           {BLOOD_GROUPS.map(bg => <option key={bg} value={bg}>{bg}</option>)}
         </select>
-        {!showBloodGroup && (
-          <span className="field-note">Blood group used if severe or bleeding detected</span>
-        )}
       </div>
 
-      <div className="form-group">
-        <label>Ambulance Location</label>
-        <input type="text" value={formData.location}
-          onChange={e => handleChange('location', e.target.value)}
-          placeholder="City name or GPS coordinates" />
-      </div>
-
-      <button className="btn-primary" onClick={onSubmit} disabled={loading}>
+      <button className="btn-primary" onClick={onSubmit} disabled={loading || !ambulancePos}>
         {loading ? (
           <span className="btn-loading"><span className="btn-spinner" />Analyzing...</span>
-        ) : 'Run AI Triage Analysis'}
+        ) : !ambulancePos ? 'Waiting for GPS...' : 'Run AI Triage Analysis'}
       </button>
     </div>
   );
@@ -114,16 +107,16 @@ export default function PatientInputPanel({ formData, onChange, onSubmit, loadin
 
 function getSpecialistHint(traumaType) {
   const map = {
-    'Cardiac Emergency':     'Requires Cardiologist',
-    'Head Injury':           'Requires Neurosurgeon',
-    'Spinal Injury':         'Requires Neurosurgeon',
-    'Heavy Bleeding':        'Requires General Surgeon',
-    'Maternal Emergency':    'Requires Gynaecologist',
-    'Burn Injury':           'Requires Burn Specialist',
-    'Chest Trauma':          'Requires Cardiothoracic Surgeon',
-    'Fracture':              'Requires Orthopaedic Surgeon',
-    'Poisoning':             'Requires Toxicologist',
-    'Other':                 'Requires General Surgeon',
+    'Cardiac Emergency':  'Requires Cardiologist',
+    'Head Injury':        'Requires Neurosurgeon',
+    'Spinal Injury':      'Requires Neurosurgeon',
+    'Heavy Bleeding':     'Requires General Surgeon',
+    'Maternal Emergency': 'Requires Gynaecologist',
+    'Burn Injury':        'Requires Burn Specialist',
+    'Chest Trauma':       'Requires Cardiothoracic Surgeon',
+    'Fracture':           'Requires Orthopaedic Surgeon',
+    'Poisoning':          'Requires Toxicologist',
+    'Other':              'Requires General Surgeon',
   };
   return map[traumaType] || '';
 }
