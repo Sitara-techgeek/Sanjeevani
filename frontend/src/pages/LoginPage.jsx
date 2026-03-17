@@ -26,34 +26,37 @@ export default function LoginPage() {
 
   return (
     <div className="login-page">
+
       <div className="login-left">
-        <div className="login-brand">
-          <img src="/icon.jpeg" alt="Sanjeevani" className="login-brand-img" />
-          <div className="login-brand-text">
-            <span className="login-brand-name">Sanjeevani</span>
-            <span className="login-brand-tagline">Every Second Matters</span>
+        <div className="login-left-content">
+          <div className="login-brand-block">
+            <img src="/icon.jpeg" alt="Sanjeevani" className="login-brand-icon" />
+            <div className="login-brand-text">
+              <span className="login-brand-name">SANJEEVANI</span>
+              <span className="login-brand-tagline">Every Second Matters</span>
+            </div>
           </div>
-        </div>
 
-        <div className="login-hero-text">
-          <h1>Every second<br/>counts.</h1>
-          <p>Intelligent emergency triage — connecting ambulances to the right hospital, faster.</p>
-        </div>
+          <div className="login-hero-text">
+            <h1>Every second<br/>counts.</h1>
+            <p>Intelligent emergency triage — connecting ambulances to the right hospital, faster.</p>
+          </div>
 
-        <div className="login-stats">
-          <div className="login-stat">
-            <span className="stat-num">60</span>
-            <span className="stat-label">min golden hour</span>
-          </div>
-          <div className="login-stat-divider"/>
-          <div className="login-stat">
-            <span className="stat-num">3x</span>
-            <span className="stat-label">faster routing</span>
-          </div>
-          <div className="login-stat-divider"/>
-          <div className="login-stat">
-            <span className="stat-num">AI</span>
-            <span className="stat-label">triage engine</span>
+          <div className="login-stats">
+            <div className="login-stat">
+              <span className="stat-num">60</span>
+              <span className="stat-label">min golden hour</span>
+            </div>
+            <div className="login-stat-divider"/>
+            <div className="login-stat">
+              <span className="stat-num">3x</span>
+              <span className="stat-label">faster routing</span>
+            </div>
+            <div className="login-stat-divider"/>
+            <div className="login-stat">
+              <span className="stat-num">AI</span>
+              <span className="stat-label">triage engine</span>
+            </div>
           </div>
         </div>
       </div>
